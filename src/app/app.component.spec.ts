@@ -26,10 +26,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('arbc-connect');
   });
 
-  it('should render title', () => {
+  it('should render the sign in navigation item', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('arbc-connect app is running!');
+    expect(compiled.querySelector('.main-navigation-child.main-navigation-link').textContent).toContain('Sign In ');
   });
 });
