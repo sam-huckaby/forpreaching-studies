@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from './auth.service';
+import { AuthService } from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
