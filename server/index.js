@@ -16,11 +16,8 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // Configure any Passport.js strategies
 // const passport = require('./passport/setup');
 
-// TODO: Determine if I need this #####################################################################
 // Custom routers to handle various subject types
-// const authRouter = require('./routes/auth.route');
-// const businessRouter = require('./routes/business.route');
-// const userRouter = require('./routes/user.route');
+const illustrationRouter = require('./routes/illustration.route');
 
 // Setup the express server
 const app = express();
@@ -55,14 +52,15 @@ let jwtCheck = jwt({
 
 // ======================= Routes ===================
 
-// Default response to a request that hits the server root
-app.get('/api/test', (req, res) => {
-    res.send('Hello World!');
+// A ping route to check service health
+app.post('/api/test', jwtCheck, (req, res) => {
+    res.send('Server Is Alive!');
 });
 
-// app.use('/api/auth', authRouter);
+app.use('/api/illustrations', jwtCheck, illustrationRouter);
+
+// app.use('/api/auth', awuthRouter);
 // app.use('/api', jwtCheck, businessRouter);
-// app.use('/api', jwtCheck, userRouter);
 
 // ======================= Express Init ===================
 

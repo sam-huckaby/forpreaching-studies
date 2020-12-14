@@ -17,7 +17,7 @@ export class AppComponent {
   faBars = faBars;
   menuOpen: boolean = false;
 
-  constructor(@Inject(DOCUMENT) public document: Document, public auth: AuthService) {}
+  constructor(public auth: AuthService, @Inject(DOCUMENT) public document: Document) {}
 
   toggleDrawer() {
     this.menuOpen = !this.menuOpen;

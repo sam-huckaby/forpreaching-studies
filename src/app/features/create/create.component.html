@@ -2,21 +2,26 @@
     <div class="table-row children-center">
         <h1>Create a new illustration</h1>
     </div>
-    <form class="example-form">
+    <form class="create-form" [formGroup]="illustrationForm" (ngSubmit)="onSubmit()">
         <div class="table-row children-center">
             <mat-form-field>
                 <mat-label>Title</mat-label>
-                <input matInput placeholder="Ex. The Angry Potter" value="">
+                <input matInput
+                    placeholder="Ex. The Angry Potter"
+                    id="title_create_input"
+                    formControlName="illustrationTitle" required>
               </mat-form-field>
         </div>
         <div class="table-row children-center">
             <mat-form-field>
                 <mat-label>Content</mat-label>
-                <textarea matInput placeholder="Ex. There once was a potter who made things and then broke them"></textarea>
+                <textarea matInput
+                    placeholder="Ex. There once was a potter who made things and then broke them"
+                    formControlName="illustrationText" required></textarea>
               </mat-form-field>
         </div>
         <div class="table-row children-center">
-            <button mat-raised-button color="primary">Create</button>
+            <button type="submit" [disabled]="!illustrationForm.valid" mat-raised-button color="primary">Create</button>
         </div>
     </form>
 </div>
