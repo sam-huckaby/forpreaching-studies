@@ -37,18 +37,18 @@ app.use(express.urlencoded({ extended: false }));
 
 // ======================= Auth0 JWT Route Authorization ===================
 
-// let jwtCheck = jwt({
-//       secret: jwks.expressJwtSecret({
-//           cache: true,
-//           rateLimit: true,
-//           jwksRequestsPerMinute: 5,
-//           jwksUri: 'https://dev-curbshop.auth0.com/.well-known/jwks.json'
-//     }),
-//     // Native Auth0 clientId
-//     audience: 'https://curbshop.app/',
-//     issuer: 'https://dev-curbshop.auth0.com/',
-//     algorithms: ['RS256']
-// });
+let jwtCheck = jwt({
+      secret: jwks.expressJwtSecret({
+          cache: true,
+          rateLimit: true,
+          jwksRequestsPerMinute: 5,
+          jwksUri: 'https://for-preaching.us.auth0.com/.well-known/jwks.json'
+    }),
+    // Native Auth0 clientId
+    audience: 'https://for-preaching.com/',
+    issuer: 'https://for-preaching.us.auth0.com/',
+    algorithms: ['RS256']
+});
 
 // This will secure ALL routes. (jwtCheck is middleware, so I have alternately put it on individual routes)
 //app.use(jwtCheck);
