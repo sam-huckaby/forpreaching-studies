@@ -1,4 +1,4 @@
-# arbc-connect
+# Illustrations For Preaching
 We've been doing small groups since the early church met in homes in the first century.
 
 In the first century, small groups knew about the jobs, finances, struggles, and spiritual progress of their members.
@@ -11,7 +11,7 @@ I wish I knew.
 I know that what we have is difficult to use, hard to keep track of, and parts are often missed. We have been roughing together our solutions for too long. I don't know that one guy is going to be able to fox these problems, but someone has to start.
 
 
-# ArbcConnect Setup
+# Illustrations Setup
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 

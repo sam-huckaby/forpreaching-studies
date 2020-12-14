@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 import { CreateRoutingModule } from './create-routing.module';
 import { CreateComponent } from './create.component';
@@ -15,7 +16,8 @@ import { CreateComponent } from './create.component';
     CommonModule,
     CreateRoutingModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ]
 })
 export class CreateModule { }

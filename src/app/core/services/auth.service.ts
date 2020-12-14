@@ -1,3 +1,8 @@
+// #########################################################################
+// This file is deprecated. I am keeping it for the event that I switch back
+// to the SPA library. for now, I am utilizing `@auth0/auth0-angular`.
+// #########################################################################
+
 import { Injectable } from '@angular/core';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
@@ -12,8 +17,8 @@ export class AuthService {
   // Create an observable of Auth0 instance of client
   auth0Client$ = (from(
     createAuth0Client({
-      domain: "arbc.us.auth0.com",
-      client_id: "S10sQMkyBIGQW5BAwBCfvH3L4cLb2nRO",
+      domain: "for-preaching.us.auth0.com",
+      client_id: "dx1sPXUS9Gu54L5ksXE6q5wKdwfUewLG",
       redirect_uri: `${window.location.origin}`
     })
   ) as Observable<Auth0Client>).pipe(
@@ -28,6 +33,7 @@ export class AuthService {
     concatMap((client: Auth0Client) => from(client.isAuthenticated())),
     tap(res => this.loggedIn = res)
   );
+  
   handleRedirectCallback$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
   );

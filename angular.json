@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "arbc-connect": {
+    "illustrations-for-preaching": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/arbc-connect",
+            "outputPath": "dist/illustrations",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -28,7 +28,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/app/styles.scss"
             ],
             "scripts": []
           },
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "arbc-connect:build"
+            "browserTarget": "illustrations-for-preaching:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "arbc-connect:build:production"
+              "browserTarget": "illustrations-for-preaching:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "arbc-connect:build"
+            "browserTarget": "illustrations-for-preaching:build"
           }
         },
         "test": {
@@ -114,15 +114,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "arbc-connect:serve"
+            "devServerTarget": "illustrations-for-preaching:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "arbc-connect:serve:production"
+              "devServerTarget": "illustrations-for-preaching:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "arbc-connect"
+  "defaultProject": "illustrations-for-preaching"
 }

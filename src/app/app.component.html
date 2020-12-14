@@ -2,14 +2,16 @@
 <mat-toolbar color="primary" class="main-navigation-bar">
   <!-- TODO: Replace this with an actual logo -->
   <div class="main-navigation-child main-navigation-logo">Logo</div>
-  
-  <a class="main-navigation-child main-navigation-link" (click)="auth.login()" *ngIf="!auth.loggedIn">Sign In <fa-icon [icon]="faSignInAlt"></fa-icon></a>
-  <a class="main-navigation-child main-navigation-link menu-link"
+  <span *ngIf="auth.isAuthenticated$ | async; else needLogin">
+    <a class="main-navigation-child main-navigation-link menu-link"
     (click)="toggleDrawer()"
-    *ngIf="auth.loggedIn"
     aria-label="Menu to move about the app">
-    <fa-icon [icon]="faBars"></fa-icon>
-  </a>
+      <fa-icon [icon]="faBars"></fa-icon>
+    </a>
+  </span>
+  <ng-template #needLogin>
+    <a class="main-navigation-child main-navigation-link" (click)="auth.loginWithRedirect()">Sign In <fa-icon [icon]="faSignInAlt"></fa-icon></a>
+  </ng-template>
 </mat-toolbar>
 <mat-drawer-container class="app-container">
   <mat-drawer-content>
@@ -17,11 +19,13 @@
     <router-outlet></router-outlet>
   </mat-drawer-content>
   <mat-drawer mode="over" position="end" [(opened)]="menuOpen">
-    <div class="sidenav-container">
+    <div class="sidenav-container" (click)="menuOpen = false">
       <div class="nav-item-wrapper" routerLink="/dashboard" routerLinkActive="nav-current-route">Dashboard</div>
       <div class="nav-item-wrapper" routerLink="/create" routerLinkActive="nav-current-route">Create</div>
       <div class="nav-item-wrapper">Connections</div>
-      <div class="nav-item-wrapper"><a (click)="auth.logout()" *ngIf="auth.loggedIn">Log Out</a></div>
+      <div class="nav-item-wrapper">
+        <a (click)="auth.logout({ returnTo: document.location.origin })">Log Out</a>
+      </div>
     </div>
   </mat-drawer>
 </mat-drawer-container>

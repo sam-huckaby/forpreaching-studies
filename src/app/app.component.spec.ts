@@ -20,10 +20,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'arbc-connect'`, () => {
+  it(`should have as title 'Illustrations For Preaching'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('arbc-connect');
+    expect(app.title).toEqual('Illustrations For Preaching');
   });
 
   it('should render the sign in navigation item', () => {
