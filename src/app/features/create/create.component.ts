@@ -10,11 +10,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class CreateComponent implements OnInit {
   // Form element model
   illustrationForm = new FormGroup({
-    illustrationTitle: new FormControl('', [
+    title: new FormControl('', [
       Validators.required,
       Validators.maxLength(100),
     ]),
-    illustrationText: new FormControl('', [
+    body: new FormControl('', [
       Validators.required,
     ]),
   });
@@ -25,7 +25,8 @@ export class CreateComponent implements OnInit {
 
   onSubmit(): void {
     // Submit things
-    this.http.post('/api/test', this.illustrationForm.value, {responseType: 'text'}).subscribe(result => console.debug(result));
+    // this.http.post('/api/illustrations', this.illustrationForm.value, {responseType: 'text'}).subscribe(result => console.debug(result));
+    this.http.get('/api/illustrations', {responseType: 'text'}).subscribe(result => console.debug(result));
 
     console.log(this.illustrationForm.value);
     // console.log(this.illustrationText.value);

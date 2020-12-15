@@ -10,8 +10,8 @@ const router = express.Router();
 
 router.post('/', IllustrationCtrl.createIllustration);
 
-// router.put('/user/:id', IllustrationCtrl.updateUser);
+router.get('/', IllustrationCtrl.getIllustrations);
 
-// router.get('/user', IllustrationCtrl.getUser);
+router.get('/:id', IllustrationCtrl.getIllustrationById);
 
 module.exports = router;

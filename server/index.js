@@ -18,6 +18,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // Custom routers to handle various subject types
 const illustrationRouter = require('./routes/illustration.route');
+const unsecuredRouter = require('./routes/unsecured.route');
 
 // Setup the express server
 const app = express();
@@ -56,6 +57,8 @@ let jwtCheck = jwt({
 app.post('/api/test', jwtCheck, (req, res) => {
     res.send('Server Is Alive!');
 });
+
+app.use('/api/unsecured', unsecuredRouter);
 
 app.use('/api/illustrations', jwtCheck, illustrationRouter);
 

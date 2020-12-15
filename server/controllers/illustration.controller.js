@@ -3,7 +3,8 @@ const Illustration = require('../database/models/illustration.model');
 // Create a new illustration in the DB
 createIllustration = (req, res) => {
     // Create the illustration document (The model instance that will be saved to the DB)
-    const newIllustration = new Illustration(req.body);
+    const newIllustration = new Illustration({...req.body, creator: req.user.sub});
+
     // Check if the document was actually instantiated
     if (!newIllustration) {
         // Something was missing from the request object, so it could not be persisted
@@ -32,95 +33,62 @@ createIllustration = (req, res) => {
         });
 }
 
-// updateUser = (req, res, next) => {
-//     User.findOne({ _id: req.params.id }, (err, user) => {
-//         if(err) {
-//             return res.status(500).json({
-//                 success: false,
-//                 message: err
-//             });
-//         }
+getIllustrations = async (req, res) => {
+    console.log(req.query.search);
+    await Illustration.find().exec((err, illustrations) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+        if (!illustrations.length) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Illustrations not found` });
+        }
+        return res.status(200).json({ success: true, data: illustrations })
+    }).catch(err => console.log(err));
+}
 
-//         if(!user) {
-//             return res.status(404).json({
-//                 success: false,
-//                 message: 'User could not be found to be updated.'
-//             });
-//         }
+getIllustrationById = async (req, res) => {
+    Illustration.findOne({ _id: req.query.id }, (err, illustration) => {
+        console.log(illustration);
+            // If we failed the lookup, just get out of there
+            if(err) {
+                return res.status(400).json({
+                    success: false,
+                    error: 'Failed to find illustration',
+                });
+            }
+    
+            // If the user is already created, just move on
+            if(!illustration) {
+                return res.status(404).json({
+                    success: false,
+                    error: 'No illustration found with id ' + req.query.id,
+                });
+            }
+    
+            return res.status(200).json(illustration)
+        });
+}
 
-//         // TODO: swap back to !==
-//         if(req.user.email !== user.email) {
-//             return res.status(403).json({
-//                 success: false,
-//                 message: 'User does not have permission to update.'
-//             });
-//         }
-
-//         // TODO: For the moment, email is how we connect Mongo and Auth0 (so we should not update it)
-//         //user.email = req.body.email;
-
-//         // Expects something like...
-// //        {
-// //            "make": "Ford",
-// //            "model": "F-250",
-// //            "color": "white"
-// //        }
-//         user.vehicles = [
-//             {
-//                 make: req.body.vehicleMake,
-//                 model: req.body.vehicleModel,
-//                 color: req.body.vehicleColor
-//             }
-//         ];
-
-//         user.save().then(
-//             () => {
-//                 // Yayyy, updated!
-//                 return res.status(200).json({
-//                     success: true,
-//                     message: 'User updated.'
-//                 });
-//             },
-//             (err) => {
-//                 // Boooo, failed!
-//                 return res.status(500).json({
-//                     success: false,
-//                     message: 'User could not be updated.'
-//                 });
-//             }
-//         );
-//     });
-// }
-
-// getUser = (req, res, next) => {
-//     // Look to see if they're in the DB already
-//     User.findOne({ email: req.query.email }, (err, user) => {
-//     console.log(user);
-//         // If we failed the lookup, just get out of there
-//         if(err) {
-//             return res.status(400).json({
-//                 success: false,
-//                 error: 'Failed on user lookup',
-//             });
-//         }
-
-//         // If the user is already created, just move on
-//         if(!user) {
-//             return res.status(404).json({
-//                 success: false,
-//                 error: 'User does not exist in the system',
-//             });
-//         }
-
-//         return res.status(200).json({
-//             success:true,
-//             user: user
-//         })
-//     });
-// }
+getTopTenIllustrations = async (req, res) => {
+    await Illustration.find().limit(10).exec((err, illustrations) => {
+        console.log(illustrations);
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+        if (!illustrations.length) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Illustrations not found` });
+        }
+        return res.status(200).json({ success: true, data: illustrations })
+    });
+}
 
 module.exports = {
     createIllustration,
-    // updateUser,
-    // getUser
+    getIllustrations,
+    getIllustrationById,
+    getTopTenIllustrations,
 };
