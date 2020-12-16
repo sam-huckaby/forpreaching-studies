@@ -7,12 +7,16 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  lastTenIllustrations:any = [];
 
   constructor(private http: HttpClient) { }
 
-  ngOnInit(): void {
-    // Request the 10 most recent illustrations
-    this.http.get('/api/unsecured/topten', {responseType: 'text'}).subscribe(result => console.debug(result));
+  async ngOnInit() {
+    // Request the 10 most recent illustrations (for users without an account);
+    this.http.get('/api/unsecured/topten').subscribe(result => {
+      this.lastTenIllustrations = result;
+      console.log(this.lastTenIllustrations);
+    });
   }
 
 }

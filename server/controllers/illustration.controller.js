@@ -1,7 +1,7 @@
 const Illustration = require('../database/models/illustration.model');
 
 // Create a new illustration in the DB
-createIllustration = (req, res) => {
+createIllustration = async (req, res) => {
     // Create the illustration document (The model instance that will be saved to the DB)
     const newIllustration = new Illustration({...req.body, creator: req.user.sub});
 
@@ -12,25 +12,48 @@ createIllustration = (req, res) => {
     }
 
     // Attempt to save the illustration document to the database
-    newIllustration
-        .save()
-        .then(() => {
-            // Illustration was saved, ESCAPE
-            return res.status(200).json({
-                success: true,
-                id: newIllustration._id,
-                message: 'Illustration created!',
-            });
-        })
-        .catch(error => {
-            console.log("Illustration persistence failed. Details:");
-            console.log(error);
-            // we failed to save the illustration, ESCAPE
-            return res.status(500).json({
-                error,
-                message: 'Illustration not created!',
-            });
+    try {
+        let result = await newIllustration.save();
+
+        return res.status(200).json({
+            success: true,
+            id: newIllustration._id,
+            message: 'Illustration created!',
         });
+    } catch (error) {
+        console.log("Illustration persistence failed. Details:");
+        console.log(error);
+
+        // we failed to save the illustration, ESCAPE
+        return res.status(500).json({
+            error,
+            message: 'Illustration not created!',
+        });
+    }
+}
+
+deleteIllustration = async (req, res) => {
+    Illustration.remove({ _id: req.params.id, creator: req.user.sub }, (err, results) => {
+        // If we failed the lookup, just get out of there
+        if(err) {
+            console.log('Illustration deletion error:');
+            console.log(err);
+
+            return res.status(400).json({
+                success: false,
+                error: 'Failed to delete illustration',
+            });
+        }
+
+        if (results.deletedCount < 1) {
+            return res.status(404).json({
+                success: false,
+                error: 'No illustration found to delete with that ID'
+            });
+        }
+
+        return res.status(200).json({success: true});
+    });
 }
 
 getIllustrations = async (req, res) => {
@@ -50,7 +73,6 @@ getIllustrations = async (req, res) => {
 
 getIllustrationById = async (req, res) => {
     Illustration.findOne({ _id: req.query.id }, (err, illustration) => {
-        console.log(illustration);
             // If we failed the lookup, just get out of there
             if(err) {
                 return res.status(400).json({
@@ -73,7 +95,6 @@ getIllustrationById = async (req, res) => {
 
 getTopTenIllustrations = async (req, res) => {
     await Illustration.find().limit(10).exec((err, illustrations) => {
-        console.log(illustrations);
         if (err) {
             return res.status(400).json({ success: false, error: err });
         }
@@ -82,12 +103,23 @@ getTopTenIllustrations = async (req, res) => {
                 .status(404)
                 .json({ success: false, error: `Illustrations not found` });
         }
-        return res.status(200).json({ success: true, data: illustrations })
+
+        // Truncate the illustration body for each of the top ten, so that they can't cheat to read them anyways
+        for(let i = 0; i < illustrations.length; i++) {
+            let ellipsis = (illustrations[i].body.length > 500);
+            illustrations[i].body = illustrations[i].body.substring(0, 500);
+            if (ellipsis) {
+                illustrations[i].body += '...';
+            }
+        }
+
+        return res.status(200).json(illustrations)
     });
 }
 
 module.exports = {
     createIllustration,
+    deleteIllustration,
     getIllustrations,
     getIllustrationById,
     getTopTenIllustrations,

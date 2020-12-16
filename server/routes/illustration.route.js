@@ -14,4 +14,6 @@ router.get('/', IllustrationCtrl.getIllustrations);
 
 router.get('/:id', IllustrationCtrl.getIllustrationById);
 
+router.delete('/:id', IllustrationCtrl.deleteIllustration);
+
 module.exports = router;

@@ -24,11 +24,7 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(): void {
-    // Submit things
-    // this.http.post('/api/illustrations', this.illustrationForm.value, {responseType: 'text'}).subscribe(result => console.debug(result));
-    this.http.get('/api/illustrations', {responseType: 'text'}).subscribe(result => console.debug(result));
-
-    console.log(this.illustrationForm.value);
-    // console.log(this.illustrationText.value);
+    // Attempt to create a new illustration
+    this.http.post('/api/illustrations', this.illustrationForm.value, {responseType: 'text'}).subscribe(result => console.debug(result));
   }
 }
