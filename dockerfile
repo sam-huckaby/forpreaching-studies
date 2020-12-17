@@ -1,4 +1,5 @@
-# More Info: https://mherman.org/blog/dockerizing-an-angular-app/
+# I used the following guide
+# https://mherman.org/blog/dockerizing-an-angular-app/
 
 # base image
 FROM node:12 as build
