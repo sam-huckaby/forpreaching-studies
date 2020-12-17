@@ -15,6 +15,9 @@ import { MatSliderModule } from '@angular/material/slider';
 // Authentication Module
 import { AuthModule, AuthHttpInterceptor } from '@auth0/auth0-angular';
 
+// Load the current environment
+import { environment } from '../environments/environment';
+
 // 3rd Party libraries
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -45,7 +48,7 @@ import { CoreModule } from './core/core.module';
       httpInterceptor: {
         allowedList: [
           // Attach access tokens to any calls that start with '/api/'
-          '/api/*',
+          environment.apiUrl+'/api/*',
 
           // Match anything starting with /api/accounts, but also specify the audience and scope the attached
           // access token must have

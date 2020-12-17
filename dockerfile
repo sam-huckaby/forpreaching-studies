@@ -1,23 +1,36 @@
-# Using the node image gives us yarn for free
-FROM node:12
+# More Info: https://mherman.org/blog/dockerizing-an-angular-app/
 
-# Create app directory
-WORKDIR /usr/src/app
+# base image
+FROM node:12 as build
 
-# Copy dependency lists
-COPY package.json ./
-COPY yarn.lock ./
+# set working directory
+WORKDIR /app
 
-# Install app dependencies
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install and cache app dependencies
+COPY package.json /app/package.json
 RUN yarn install
+RUN yarn global add @angular/cli
 
-# Bundle app source
-COPY . .
+# add app
+COPY . /app
 
-# This would allow for serving the react app seprately, which is too much right now
-#RUN yarn global add serve
+# generate build
+RUN ng build --prod --output-path=dist
 
-EXPOSE 3001
+### The above is run in an intermediary container so that we can use the benefits of node.js/yarn
+### We then copy the produced results into our nginx container, which is super fast.
 
-# Give the command that will actually be called when the image is started
-CMD [ "node", "index.js" ]
+# base image
+FROM nginx:1.16.0-alpine
+
+# copy artifact build from the 'build environment'
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# expose port 80
+EXPOSE 80
+
+# run nginx
+CMD ["nginx", "-g", "daemon off;"]
