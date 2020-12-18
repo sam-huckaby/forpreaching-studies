@@ -30,8 +30,8 @@ FROM nginx:1.16.0-alpine
 # copy artifact build from the 'build environment'
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# expose port 4200 (because I'll configure 80 to map to 4200 in docker-compose.yml)
-EXPOSE 4200
+# Expose 80 so that nginx-proxy knows where to send traffic 
+EXPOSE 80
 
 # run nginx
 CMD ["nginx", "-g", "daemon off;"]
