@@ -48,6 +48,7 @@ import { CoreModule } from './core/core.module';
       httpInterceptor: {
         allowedList: [
           // Attach access tokens to any calls that start with '/api/'
+          // environment.apiUrl+'/api/*',
           environment.apiUrl+'/api/*',
 
           // Match anything starting with /api/accounts, but also specify the audience and scope the attached

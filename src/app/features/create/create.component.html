@@ -2,7 +2,7 @@
     <div class="table-row children-center">
         <h1>Create a new illustration</h1>
     </div>
-    <form class="create-form" [formGroup]="illustrationForm" (ngSubmit)="onSubmit()">
+    <form class="create-form" [formGroup]="illustrationForm" (ngSubmit)="onSubmit()" #createIllustrationForm="ngForm">
         <div class="table-row children-center">
             <mat-form-field>
                 <mat-label>Title</mat-label>
@@ -24,4 +24,10 @@
             <button type="submit" [disabled]="!illustrationForm.valid" mat-raised-button color="primary">Create</button>
         </div>
     </form>
+    <div class="success-message children-center" *ngIf="submit$ | async as result; else indicator">
+        <span *ngIf="result !== true">Illustration created!</span>
+    </div>
+    <ng-template #indicator>
+        <div class="fullscreen-loading-veil">Loading...</div>
+    </ng-template>
 </div>

@@ -1,4 +1,10 @@
 <div class="padded-page-container">
-    <p>New Illustration</p>
-    <p>Add that sweet new bucket of words.</p>
+    <div class="" *ngIf="illustration$ | async as illustration; else indicator">
+        <p>Title: {{illustration.title}}</p>
+        <p>Created: {{illustration.createdAt | date:'longDate'}}</p>
+        <div>Body: {{illustration.body}}</div>
+    </div>
+    <ng-template #indicator>
+        <div class="fullscreen-loading-veil">Loading...</div>
+    </ng-template>
 </div>

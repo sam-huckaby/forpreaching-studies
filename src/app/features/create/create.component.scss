@@ -4,3 +4,13 @@
     @include flex-row;
 }
 
+.fullscreen-loading-veil {
+    @include full-screen;
+    @include loadin-veil;
+}
+
+.success-message {
+    @include flex-row;
+
+    margin-top: 10px;
+}

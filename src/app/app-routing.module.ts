@@ -8,18 +8,19 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule),
-    pathMatch: 'full'
+    loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
-    pathMatch: 'full'
+    loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
     path: 'create',
-    loadChildren: () => import('./features/create/create.module').then(m => m.CreateModule),
-    pathMatch: 'full'
+    loadChildren: () => import('./features/create/create.module').then(m => m.CreateModule)
+  },
+  {
+    path: 'illustration',
+    loadChildren: () => import('./features/illustration/illustration.module').then(m => m.IllustrationModule)
   },
   {
     path: '**',

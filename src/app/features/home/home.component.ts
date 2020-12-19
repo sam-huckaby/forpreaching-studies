@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     // Request the 10 most recent illustrations (for users without an account);
-    this.http.get('/api/unsecured/topten').subscribe(result => {
+    this.http.get('/unsecured/topten').subscribe(result => {
       this.lastTenIllustrations = result;
     });
   }
