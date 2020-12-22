@@ -4,10 +4,9 @@
             <form class="illustration-form" [formGroup]="illustrationForm" #editIllustrationForm="ngForm">
                 <div class="responsive-breakdown space-between" id="top-metadata">
                     <span class="field-label">Created: {{illustration.createdAt | date:'longDate'}}</span>
-                    <!-- <button mat-icon-button color="warn"><fa-icon [icon]="faTrash"></fa-icon></button> -->
                 </div>
                 <div class="responsive-breakdown">
-                    <mat-form-field class="flex-full right-margin">
+                    <mat-form-field appearance="outline" class="flex-full">
                         <mat-label for="title_illustration_input">Title</mat-label>
                         <input matInput
                             placeholder="Ex. The Angry Potter"
