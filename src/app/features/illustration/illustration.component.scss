@@ -1,0 +1,86 @@
+@import '../../styles/forms.scss';
+
+.padded-page-container {
+    @include flex-col;
+    height: calc(100% - 20px);
+}
+
+.loaded-illustration {
+    @include flex-col;
+
+    // Take up the entire page
+    flex: 1 1 100%;
+}
+
+.owner-view {
+    @include flex-col;
+
+    // Take up the entire page
+    flex: 1 1 100%;
+}
+
+.illustration-form {
+    @include flex-col;
+
+    // Take up the entire page
+    flex: 1 1 100%;
+}
+
+.last-input-container {
+    @include flex-col;
+}
+
+.last-input-field {
+    @include flex-col;
+}
+
+.bottom-controls {
+    @include flex-row;
+
+    justify-content: flex-end;
+}
+
+.control-button {
+    margin: 0 10px;
+}
+
+#body_illustration_input {
+    flex: 1 1 100%;
+}
+
+.responsive-breakdown {
+    @include flex-row;
+}
+
+.responsive-expand {
+    flex-grow: 1;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+#top-metadata {
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.flex-full {
+    @include flex-full;
+}
+
+.right-margin {
+    margin-right: 10px;
+}
+
+.field-label {
+    color: #444444;
+}
+
+.illustration-content {
+    height: 400px;
+}
+
+.spacer {
+    flex: 1 1 100%;
+}

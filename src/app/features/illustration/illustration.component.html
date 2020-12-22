@@ -1,10 +1,46 @@
 <div class="padded-page-container">
-    <div class="" *ngIf="illustration$ | async as illustration; else indicator">
-        <p>Title: {{illustration.title}}</p>
-        <p>Created: {{illustration.createdAt | date:'longDate'}}</p>
-        <div>Body: {{illustration.body}}</div>
+    <div class="loaded-illustration" *ngIf="illustration$ | async as illustration; else indicator">
+        <div class="owner-view" *ngIf="illustration.creator === userId; else visitor">
+            <form class="illustration-form" [formGroup]="illustrationForm" #editIllustrationForm="ngForm">
+                <div class="responsive-breakdown space-between" id="top-metadata">
+                    <span class="field-label">Created: {{illustration.createdAt | date:'longDate'}}</span>
+                    <!-- <button mat-icon-button color="warn"><fa-icon [icon]="faTrash"></fa-icon></button> -->
+                </div>
+                <div class="responsive-breakdown">
+                    <mat-form-field class="flex-full right-margin">
+                        <mat-label for="title_illustration_input">Title</mat-label>
+                        <input matInput
+                            placeholder="Ex. The Angry Potter"
+                            id="title_illustration_input"
+                            class="responsive-width"
+                            formControlName="title" required>
+                    </mat-form-field>
+                </div>
+                <div class="responsive-expand flex-full last-input-container">
+                    <mat-form-field appearance="outline" class="flex-full last-input-field">
+                        <mat-label for="body_illustration_input">Content</mat-label>
+                        <textarea matInput
+                            placeholder="Ex. There once was a potter who made things and then broke them" id="body_illustration_input"
+                            formControlName="body" class="illustration-content responsive-width" required></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="bottom-controls">
+                    <button class="control-button" [disabled]="!illustrationForm.valid" mat-raised-button color="warn"><fa-icon [icon]="faTrash"></fa-icon></button>
+                    <divl class="spacer"></divl>
+                    <button class="control-button" mat-raised-button>Reset</button>
+                    <button class="control-button" [disabled]="!illustrationForm.valid" mat-raised-button color="primary">Save</button>
+                </div>
+            </form>
+        </div>
+        <ng-template #visitor>
+            <div class="">Title: {{illustration.title}}</div>
+            <div class="">Created: {{illustration.createdAt | date:'longDate'}}</div>
+            <div>Body: {{illustration.body}}</div>
+        </ng-template>
     </div>
     <ng-template #indicator>
-        <div class="fullscreen-loading-veil">Loading...</div>
+        <div class="fullscreen-loading-veil">
+            Loading...
+        </div>
     </ng-template>
 </div>

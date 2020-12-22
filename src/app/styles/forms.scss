@@ -22,6 +22,10 @@
     }
 }
 
+@mixin flex-full {
+    flex: 1 1 100%;
+}
+
 @mixin full-screen {
     position: absolute;
     top: 0;
