@@ -84,3 +84,8 @@
 .spacer {
     flex: 1 1 100%;
 }
+
+.fullscreen-loading-veil {
+    @include full-screen;
+    @include loading-veil;
+}

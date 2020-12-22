@@ -6,7 +6,7 @@
 
 .fullscreen-loading-veil {
     @include full-screen;
-    @include loadin-veil;
+    @include loading-veil;
 }
 
 .success-message {

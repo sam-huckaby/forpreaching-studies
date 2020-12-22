@@ -1,6 +1,6 @@
 // The interface for the DB illustration model
 export interface Illustration {
-    id: string;
+    _id: string;
     title: string;
     body: string;
     creator: string;

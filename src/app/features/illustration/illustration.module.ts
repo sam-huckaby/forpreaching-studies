@@ -5,16 +5,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // 3rd Party libraries
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { IllustrationRoutingModule } from './illustration-routing.module';
-import { IllustrationComponent } from './illustration.component';
+import { IllustrationComponent, ConfirmDeleteDialog } from './illustration.component';
 
 @NgModule({
   declarations: [
-    IllustrationComponent
+    IllustrationComponent,
+    ConfirmDeleteDialog
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,11 @@ import { IllustrationComponent } from './illustration.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatDialogModule,
     FontAwesomeModule,
-  ]
+  ],
+  entryComponents: [
+    ConfirmDeleteDialog
+  ],
 })
 export class IllustrationModule { }
