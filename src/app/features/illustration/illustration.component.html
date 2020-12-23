@@ -1,6 +1,6 @@
 <div class="padded-page-container">
     <div class="loaded-illustration" *ngIf="illustration$ | async as illustration; else indicator">
-        <div class="owner-view" *ngIf="illustration.creator !== userId; else visitor">
+        <div class="owner-view" *ngIf="illustration.creator === userId; else visitor">
             <form class="illustration-form" [formGroup]="illustrationForm" #editIllustrationForm="ngForm">
                 <div class="responsive-breakdown space-between" id="top-metadata">
                     <span class="field-label">Created: {{illustration.createdAt | date:'longDate'}}</span>
