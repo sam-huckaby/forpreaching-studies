@@ -7,6 +7,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { Observable } from 'rxjs';
 import { share, tap } from 'rxjs/operators';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Illustration } from '../../core/interfaces/illustration.interface';
 
@@ -28,7 +29,9 @@ export class IllustrationComponent implements OnInit {
   illustration$: Observable<Illustration>;
   original: Illustration;
   delete$: Observable<boolean>
+  save$: Observable<Illustration>;
   isDeleting: boolean = false;
+  isSaving: boolean = false;
   userId: String;
 
   constructor(
@@ -37,6 +40,7 @@ export class IllustrationComponent implements OnInit {
     private route: ActivatedRoute,
     public auth: AuthService,
     private formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar,
     public dialog: MatDialog) { }
 
   deleteIllustration(): void {
@@ -58,7 +62,20 @@ export class IllustrationComponent implements OnInit {
   }
 
   saveChanges(): void {
+    this.isSaving = true;
     // Send the request to save the form's data
+    this.save$ = this.http.put<Illustration>('/api/illustrations/'+this.illustrationId, this.illustrationForm.value, {responseType: 'json'}).pipe(share());
+    this.save$.subscribe((illustration) => {
+      this.original = illustration;
+      this.resetChanges();
+    }, (caught) => {
+      this._snackBar.open(caught.error.info, "Got it", {
+        duration: 5000,
+      });
+    }, () => {
+      // Remove the loading veil no matter what
+      this.isSaving = false;
+    })
   }
 
   ngOnInit(): void {
@@ -66,8 +83,6 @@ export class IllustrationComponent implements OnInit {
       title: ['', Validators.required],
       body: ['', Validators.required]
     });
-
-    console.log(this.illustrationForm);
 
     this.route.params.subscribe(params => {
 

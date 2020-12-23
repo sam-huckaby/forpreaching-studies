@@ -1,6 +1,6 @@
 <div class="padded-page-container">
     <div class="loaded-illustration" *ngIf="illustration$ | async as illustration; else indicator">
-        <div class="owner-view" *ngIf="illustration.creator === userId; else visitor">
+        <div class="owner-view" *ngIf="illustration.creator !== userId; else visitor">
             <form class="illustration-form" [formGroup]="illustrationForm" #editIllustrationForm="ngForm">
                 <div class="responsive-breakdown space-between" id="top-metadata">
                     <span class="field-label">Created: {{illustration.createdAt | date:'longDate'}}</span>
@@ -27,17 +27,21 @@
                     <button class="control-button" [disabled]="!illustrationForm.valid" (click)="deleteIllustration()" mat-raised-button color="warn"><fa-icon [icon]="faTrash"></fa-icon></button>
                     <divl class="spacer"></divl>
                     <button class="control-button" [disabled]="!illustrationForm.dirty" (click)="resetChanges()" mat-raised-button>Reset</button>
-                    <button class="control-button" [disabled]="!illustrationForm.valid || !illustrationForm.dirty" mat-raised-button color="primary">Save</button>
+                    <button class="control-button" [disabled]="!illustrationForm.valid || !illustrationForm.dirty" (click)="saveChanges()" mat-raised-button color="primary">Save</button>
                 </div>
             </form>
         </div>
         <ng-template #visitor>
-            <div class="">Title: {{illustration.title}}</div>
-            <div class="">Created: {{illustration.createdAt | date:'longDate'}}</div>
-            <div>Body: {{illustration.body}}</div>
+            <div class="visitor-view">
+                <div class="responsive-breakdown space-between" id="top-metadata">
+                    <span class="field-label">Created: {{illustration.createdAt | date:'longDate'}}</span>
+                </div>
+                <div class="header-text">{{illustration.title}}</div>
+                <div class="regular-text">Body: {{illustration.body}}</div>
+            </div>
         </ng-template>
     </div>
-    <div class="deleter" *ngIf="!isDeleting else indicator"></div>
+    <div class="operator" *ngIf="(!isDeleting && !isSaving) else indicator"></div>
     <ng-template #indicator>
         <div class="fullscreen-loading-veil">
             Loading...

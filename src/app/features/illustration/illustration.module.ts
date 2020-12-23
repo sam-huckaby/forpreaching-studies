@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // 3rd Party libraries
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -27,6 +28,7 @@ import { IllustrationComponent, ConfirmDeleteDialog } from './illustration.compo
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
+    MatSnackBarModule,
     FontAwesomeModule,
   ],
   entryComponents: [

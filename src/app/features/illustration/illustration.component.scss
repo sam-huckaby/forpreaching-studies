@@ -12,7 +12,8 @@
     flex: 1 1 100%;
 }
 
-.owner-view {
+.owner-view,
+.visitor-view {
     @include flex-col;
 
     // Take up the entire page
@@ -88,4 +89,15 @@
 .fullscreen-loading-veil {
     @include full-screen;
     @include loading-veil;
+}
+
+// Visitor View elements
+.header-text {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.regular-text {
+    font-size: 14px;
 }
