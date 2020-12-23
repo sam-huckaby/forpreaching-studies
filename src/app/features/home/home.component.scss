@@ -2,7 +2,7 @@
 
 .padded-page-container {
     @include flex-col;
-    height: 100%;
+    height: calc(100% - 20px);
 }
 
 #snippet-container {
