@@ -13,22 +13,26 @@
     <a class="main-navigation-child main-navigation-link" (click)="auth.loginWithRedirect()">Sign In <fa-icon [icon]="faSignInAlt"></fa-icon></a>
   </ng-template>
 </mat-toolbar>
-<mat-drawer-container class="app-container">
-  <mat-drawer-content>
+<mat-sidenav-container class="app-container">
+  <mat-sidenav-content>
     <!-- The routed views render in the <router-outlet>-->
     <router-outlet></router-outlet>
-  </mat-drawer-content>
-  <mat-drawer mode="over" position="end" [(opened)]="menuOpen">
+  </mat-sidenav-content>
+  <mat-sidenav mode="over" position="end" [(opened)]="menuOpen">
     <div class="sidenav-container" (click)="menuOpen = false">
+      <div class="nav-item-wrapper" routerLink="/home" routerLinkActive="nav-current-route">Home</div>
       <div class="nav-item-wrapper" routerLink="/dashboard" routerLinkActive="nav-current-route">Dashboard</div>
       <div class="nav-item-wrapper" routerLink="/create" routerLinkActive="nav-current-route">Create</div>
       <!-- <div class="nav-item-wrapper">Connections</div> -->
+      <mat-divider></mat-divider>
+      <div class="filler">&nbsp;</div>
+      <mat-divider></mat-divider>
       <div class="nav-item-wrapper">
         <a (click)="auth.logout({ returnTo: document.location.origin })">Log Out</a>
       </div>
     </div>
-  </mat-drawer>
-</mat-drawer-container>
+  </mat-sidenav>
+</mat-sidenav-container>
 <!-- <nav>
   <div class="main-navigation-bar">
     <div class="main-navigation-child main-navigation-logo">Logo</div>

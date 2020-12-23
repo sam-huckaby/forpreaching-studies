@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from '@auth0/auth0-angular';
 import { AppComponent } from './app.component';
@@ -9,7 +9,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 describe('AppComponent', () => {
   let auth: AuthService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,

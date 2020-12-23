@@ -53,20 +53,18 @@ $nav-height: 50px;
 }
 
 .sidenav-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    max-width: 90vw;
 
+    .filler {
+        background-color: whitesmoke;
+    }
+    
     .nav-item-wrapper {
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        width: 100%;
         padding: 10px;
         font-size: 1.5em;
-        border-bottom: 1px solid #000000;
+        // border-bottom: 1px solid #000000;
         cursor: pointer;
 
         &:hover {
