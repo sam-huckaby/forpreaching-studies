@@ -1,0 +1,93 @@
+@import '../../styles/forms.scss';
+
+.padded-page-container {
+    height: calc(100% - 20px);
+    @include flex-col;
+}
+
+.top-message {
+    font-weight: bold;
+}
+
+.help-text {
+    color: #444444;
+}
+
+.search-panel-container {
+    border-bottom: 1px solid lightgray;
+}
+
+.responsive-breakdown {
+    @include flex-row;
+}
+
+.spread-out {
+    justify-content: space-around;
+}
+
+.flex-end {
+    justify-content: flex-end;
+}
+
+.flex-full {
+    @include flex-full;
+}
+
+.pad-between:not(:last-child) {
+    padding-right: 10px;
+}
+
+.control-button {
+    padding: 0 50px;
+    margin-bottom: 10px;
+}
+
+.results-panel-container {
+    position: relative;
+    flex: 1 1 100%;
+    overflow: auto;
+}
+
+.result-row {
+    @include flex-col;
+    height: 100px;
+    overflow: hidden;
+    padding: 10px;
+    border-bottom: 1px solid lightgray;
+
+    &:nth-child(odd) {
+        background-color: whitesmoke;
+    }
+
+    .top-bar {
+        @include flex-row;
+        justify-content: space-between;
+        padding: 5px 0;
+
+        .title {
+            font-size: 16px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+        }
+
+        .updated {
+            color: #444444;
+        }
+    }
+}
+
+.no-results-veil {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}

@@ -1,4 +1,45 @@
 <div class="padded-page-container">
-    <p>Illustration Dashboard</p>
-    <p>Searching coming soon.</p>
+    <div class="help-text top-message">Use the search panel below to look for specific illustrations.</div>
+    <div class="search-panel-container">
+        <form class="dashboard-form" [formGroup]="dashboardFormGroup" #dashboardForm="ngForm">
+            <div class="responsive-breakdown spread-out">
+                <mat-form-field appearance="outline" class="flex-full pad-between">
+                    <mat-label for="title_illustration_input">Title</mat-label>
+                    <input matInput
+                        placeholder="Ex. The Angry Potter"
+                        id="title_illustration_input"
+                        class="responsive-width"
+                        formControlName="title">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="flex-full pad-between">
+                    <mat-label for="body_illustration_input">Content</mat-label>
+                    <input matInput
+                        placeholder="Ex. because the Law condemns"
+                        id="body_illustration_input"
+                        class="responsive-width"
+                        formControlName="body">
+                </mat-form-field>
+            </div>
+            <div class="responsive-breakdown flex-end">
+                <button class="control-button" (click)="search()" mat-raised-button color="primary"><fa-icon [icon]="faSearch"></fa-icon></button>
+            </div>
+        </form>
+    </div>
+    <div class="results-panel-container">
+        <div class="results-panel" *ngIf="search$ | async as searchResults else resultless">
+            <div class="result-row" *ngFor="let result of searchResults">
+                <div class="top-bar">
+                    <span class="title" [routerLink]="['/illustration', result._id]">{{result.title}}</span>
+                    <span class="filler"></span>
+                    <span class="updated">Last Updated: {{result.updatedAt | date:'longDate'}}</span>
+                </div>
+                <div class="bottom-bar">{{result.body}}</div>
+            </div>
+        </div>
+        <ng-template #resultless>
+            <div class="no-results-veil">
+                No Results Found
+            </div>
+        </ng-template>
+    </div>
 </div>

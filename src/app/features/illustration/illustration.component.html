@@ -4,6 +4,7 @@
             <form class="illustration-form" [formGroup]="illustrationForm" #editIllustrationForm="ngForm">
                 <div class="responsive-breakdown space-between" id="top-metadata">
                     <span class="field-label">Created: {{illustration.createdAt | date:'longDate'}}</span>
+                    <span class="field-label">Last Updated: {{illustration.updatedAt | date:'longDate'}}</span>
                 </div>
                 <div class="responsive-breakdown">
                     <mat-form-field appearance="outline" class="flex-full">
