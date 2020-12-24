@@ -76,6 +76,15 @@ $breakpoint-tablet: 768px;
         justify-content: space-between;
         padding: 5px 0;
 
+        @media (max-width: $breakpoint-tablet) {
+            height: 40px;
+
+            .title,
+            .updated {
+                flex: 1 1 auto;
+            }
+        }
+
         .title {
             font-size: 16px;
             font-weight: bold;
@@ -87,6 +96,9 @@ $breakpoint-tablet: 768px;
 
         .updated {
             color: #444444;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 }
