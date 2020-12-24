@@ -31,7 +31,6 @@ export class DashboardComponent implements OnInit {
 
   search(): void {
     // Look for illustrations using provided criteria
-    console.log('SEARCH');
     this.search$ = this.http.get<Illustration[]>('/api/illustrations', {responseType: 'json', params: this.dashboardForm.value}).pipe(share());
   }
 
