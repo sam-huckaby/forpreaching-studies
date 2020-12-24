@@ -28,9 +28,8 @@
     <div class="results-panel-container">
         <div class="results-panel" *ngIf="search$ | async as searchResults else resultless">
             <div class="result-row" *ngFor="let result of searchResults">
-                <div class="top-bar">
+                <div class="top-bar responsive-breakdown">
                     <span class="title" [routerLink]="['/illustration', result._id]">{{result.title}}</span>
-                    <span class="filler"></span>
                     <span class="updated">Last Updated: {{result.updatedAt | date:'longDate'}}</span>
                 </div>
                 <div class="bottom-bar">{{result.body}}</div>

@@ -1,5 +1,10 @@
+// Imports
 @import '../../styles/forms.scss';
 
+// Variables
+$breakpoint-tablet: 768px;
+
+//Styles
 .padded-page-container {
     height: calc(100% - 20px);
     @include flex-col;
@@ -18,7 +23,13 @@
 }
 
 .responsive-breakdown {
-    @include flex-row;
+    @media (min-width: $breakpoint-tablet+1) {
+        @include flex-row;
+    }
+
+    @media (max-width: $breakpoint-tablet) {
+        @include flex-col;
+    }
 }
 
 .spread-out {
@@ -34,7 +45,9 @@
 }
 
 .pad-between:not(:last-child) {
-    padding-right: 10px;
+    @media (min-width: $breakpoint-tablet+1) {
+        padding-right: 10px;
+    }
 }
 
 .control-button {
@@ -60,7 +73,6 @@
     }
 
     .top-bar {
-        @include flex-row;
         justify-content: space-between;
         padding: 5px 0;
 
