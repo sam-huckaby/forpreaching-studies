@@ -102,6 +102,12 @@ $breakpoint-tablet: 768px;
             text-overflow: ellipsis;
         }
     }
+
+    .bottom-bar {
+        display: flex;
+        flex: 0 1 50%;
+        overflow: hidden;
+    }
 }
 
 .no-results-veil {
