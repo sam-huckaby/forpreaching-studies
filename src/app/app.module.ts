@@ -50,35 +50,6 @@ import { CoreModule } from './core/core.module';
           // Attach access tokens to any calls that start with '/api/'
           // environment.apiUrl+'/api/*',
           environment.apiUrl+'/api/*',
-
-          // Match anything starting with /api/accounts, but also specify the audience and scope the attached
-          // access token must have
-          // {
-          //   uri: '/api/accounts/*',
-          //   tokenOptions: {
-          //     audience: 'http://my-api/',
-          //     scope: 'read:accounts',
-          //   },
-          // },
-
-          // Matching on HTTP method
-          // {
-          //   uri: '/api/orders',
-          //   httpMethod: 'post',
-          //   tokenOptions: {
-          //     audience: 'http://my-api/',
-          //     scope: 'write:orders',
-          //   },
-          // },
-
-          // Using an absolute URI
-          // {
-          //   uri: 'https://your-domain.auth0.com/api/v2/users',
-          //   tokenOptions: {
-          //     audience: 'https://your-domain.com/api/v2/',
-          //     scope: 'read:users',
-          //   },
-          // },
         ],
       },
     }),

@@ -11,6 +11,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 // 3rd Party libraries
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+// TinyMCE
+import { EditorModule } from '@tinymce/tinymce-angular';
+
 import { IllustrationRoutingModule } from './illustration-routing.module';
 import { IllustrationComponent, ConfirmDeleteDialog } from './illustration.component';
 
@@ -30,6 +33,7 @@ import { IllustrationComponent, ConfirmDeleteDialog } from './illustration.compo
     MatDialogModule,
     MatSnackBarModule,
     FontAwesomeModule,
+    EditorModule,
   ],
   entryComponents: [
     ConfirmDeleteDialog

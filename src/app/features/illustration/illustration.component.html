@@ -23,12 +23,33 @@
                     </div>
                     <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
                     <div class="responsive-expand flex-full last-input-container">
-                        <mat-form-field appearance="outline" class="flex-full last-input-field">
+                        <!-- <mat-form-field appearance="outline" class="flex-full last-input-field">
                             <mat-label for="body_illustration_input">Content</mat-label>
                             <textarea matInput (keyup)="updateReadingTime()"
                                 placeholder="Ex. There once was a potter who made things and then broke them" id="body_illustration_input"
                                 formControlName="body" class="illustration-content responsive-width" required></textarea>
-                        </mat-form-field>
+                        </mat-form-field> -->
+                        <editor
+                            initialValue="<p>Illustration is loading...</p>"
+                            apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
+                            formControlName="body"
+                            (keyup)="updateReadingTime()"
+                            [init]="{
+                                height: 500,
+                                menubar: false,
+                                plugins: [
+                                'advlist autolink lists link image charmap print',
+                                'preview anchor searchreplace visualblocks code',
+                                'fullscreen insertdatetime media table paste',
+                                'help wordcount'
+                                ],
+                                toolbar:
+                                'undo redo | formatselect | bold italic | \
+                                alignleft aligncenter alignright alignjustify | \
+                                bullist numlist outdent indent | help'
+                            }"
+                        >
+                        </editor>
                     </div>
                     <div class="bottom-controls">
                         <button class="control-button" [disabled]="!illustrationForm.valid" (click)="deleteIllustration()" mat-raised-button color="warn"><fa-icon [icon]="faTrash"></fa-icon></button>
