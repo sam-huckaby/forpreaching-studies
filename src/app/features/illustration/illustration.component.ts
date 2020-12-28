@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '@auth0/auth0-angular';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { share, tap } from 'rxjs/operators';
 
 import { Illustration } from '../../core/interfaces/illustration.interface';
@@ -26,13 +26,13 @@ export class IllustrationComponent implements OnInit {
 
   illustrationForm: FormGroup;
   illustrationId: String;
-  illustration$: Observable<Illustration>;
-  original: Illustration;
   delete$: Observable<boolean>
-  save$: Observable<Illustration>;
-  isDeleting: boolean = false;
-  isSaving: boolean = false;
   userId: String;
+
+  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  illustration$: BehaviorSubject<Illustration> = new BehaviorSubject({} as Illustration);
+
+  readTime: Number;
 
   constructor(
     private http: HttpClient,
@@ -44,37 +44,58 @@ export class IllustrationComponent implements OnInit {
     public dialog: MatDialog) { }
 
   deleteIllustration(): void {
+    // Display loading veil
+    this.isLoading$.next(true);
+
+    // Open a simple dialog to confirm that the user wants to delete the illustration
     let confirmDeleteDialogRef = this.dialog.open(ConfirmDeleteDialog, {});
+
+    // Wait to hear back from the user before deleting
     confirmDeleteDialogRef.afterClosed().subscribe(result => {
       if(result) {
-        this.isDeleting = true;
         // Make the request to Node to actually delete the illustration
         this.http.delete<boolean>('/api/illustrations/'+this.illustrationId, {responseType: 'json'})
         .subscribe((success) => {
+          // If the illustration was deleted, navigate back to the last page the user was on
           this.location.back();
+        }, (caught) => {
+          this._snackBar.open(caught.error.info, "Got it", {
+            duration: 5000,
+          });
+        }, () => {
+          // Stop displaying the loading veil no matter what
+          this.isLoading$.next(false);
         });
+      } else {
+        // Stop displaying the loading veil no matter what
+        this.isLoading$.next(false);
       }
     });
   }
 
   resetChanges(): void {
-    this.illustrationForm.reset(this.original);
+    // Reset the form to the last illustration value
+    this.illustrationForm.reset(this.illustration$.getValue());
   }
 
   saveChanges(): void {
-    this.isSaving = true;
+    // Display loading veil
+    this.isLoading$.next(true);
+
     // Send the request to save the form's data
-    this.save$ = this.http.put<Illustration>('/api/illustrations/'+this.illustrationId, this.illustrationForm.value, {responseType: 'json'}).pipe(share());
-    this.save$.subscribe((illustration) => {
-      this.original = illustration;
-      this.resetChanges();
+    this.http.put<Illustration>('/api/illustrations/'+this.illustrationId, this.illustrationForm.value, {responseType: 'json'})
+    .subscribe((illustration) => {
+      // Once we have the illustration, populate the data management BehaviorSubject
+      this.illustration$.next(illustration);
+      // Mark the form as pristine again
+      this.illustrationForm.markAsPristine();
     }, (caught) => {
       this._snackBar.open(caught.error.info, "Got it", {
         duration: 5000,
       });
     }, () => {
-      // Remove the loading veil no matter what
-      this.isSaving = false;
+      // Stop displaying the loading veil
+      this.isLoading$.next(false);
     })
   }
 
@@ -84,21 +105,36 @@ export class IllustrationComponent implements OnInit {
       body: ['', Validators.required]
     });
 
-    this.route.params.subscribe(params => {
+    // Display loading veil
+    this.isLoading$.next(true);
 
+    // Anytime the current illustration changes, patch the form to match
+    this.illustration$.subscribe((newValue) => {
+      this.illustrationForm.patchValue(newValue);
+      // A quick calculation using an average reading time of 125 WPM
+      this.readTime = Math.ceil(((this.illustrationForm.value.body.split(' ')).length/125)*60);
+    });
+
+    // Retrieve the route params so we can get the user and then the illustration
+    this.route.params.subscribe(params => {
       // Retrieve the user information from Auth0
       this.auth.user$.subscribe((user) => {
         // Once we have the user, we can grab the illustration from the DB
         this.userId = user.sub;
-        this.illustration$ = this.http.get<Illustration>('/api/illustrations/'+params['id'], {responseType: 'json'})
-        .pipe(
-          share(),
-          tap((illustration) => {
-            this.illustrationId = illustration._id;
-            this.original = illustration;
-            this.illustrationForm.patchValue(illustration);
-          })
-        );
+        this.http.get<Illustration>('/api/illustrations/'+params['id'], {responseType: 'json'})
+        .subscribe((illustration) => {
+          // Once we have the illustration, populate the data management BehaviorSubject
+          this.illustration$.next(illustration);
+          // Keep track of this illustration's ID
+          this.illustrationId = illustration._id;
+        }, (caught) => {
+          this._snackBar.open(caught.error.info, "Got it", {
+            duration: 5000,
+          });
+        }, () => {
+          // Stop displaying the loading veil no matter what
+          this.isLoading$.next(false);
+        });
       });
     });
   }

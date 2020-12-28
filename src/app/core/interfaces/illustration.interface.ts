@@ -6,4 +6,5 @@ export interface Illustration {
     creator: string;
     createdAt: Number;
     updatedAt: Number;
+    readTime: Number;
   }
