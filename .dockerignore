@@ -17,3 +17,6 @@ karma.conf.js
 
 # Don't keep Readme
 README.md
+
+# Don't keep dev environment things
+proxy.config.json
