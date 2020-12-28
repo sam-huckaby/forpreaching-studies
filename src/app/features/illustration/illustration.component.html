@@ -25,7 +25,7 @@
                     <div class="responsive-expand flex-full last-input-container">
                         <mat-form-field appearance="outline" class="flex-full last-input-field">
                             <mat-label for="body_illustration_input">Content</mat-label>
-                            <textarea matInput
+                            <textarea matInput (keyup)="updateReadingTime()"
                                 placeholder="Ex. There once was a potter who made things and then broke them" id="body_illustration_input"
                                 formControlName="body" class="illustration-content responsive-width" required></textarea>
                         </mat-form-field>

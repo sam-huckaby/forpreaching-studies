@@ -7,7 +7,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '@auth0/auth0-angular';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { share, tap } from 'rxjs/operators';
 
 import { Illustration } from '../../core/interfaces/illustration.interface';
 
@@ -59,6 +58,7 @@ export class IllustrationComponent implements OnInit {
           // If the illustration was deleted, navigate back to the last page the user was on
           this.location.back();
         }, (caught) => {
+          // Open a Material Snackbar
           this._snackBar.open(caught.error.info, "Got it", {
             duration: 5000,
           });
@@ -97,6 +97,11 @@ export class IllustrationComponent implements OnInit {
       // Stop displaying the loading veil
       this.isLoading$.next(false);
     })
+  }
+
+  updateReadingTime() {
+    // Is this the right place to do this? Will it be too time intensive with a large illustration?
+    this.readTime = Math.ceil(((this.illustrationForm.value.body.split(' ')).length/125)*60);
   }
 
   ngOnInit(): void {
@@ -140,6 +145,7 @@ export class IllustrationComponent implements OnInit {
   }
 }
 
+// Pretty simple dialog, so I'm just embedding it here
 @Component({
   selector: 'dialog-overview-example-dialog',
   template: ` <h2 mat-dialog-title>Delete this illustration?</h2>
