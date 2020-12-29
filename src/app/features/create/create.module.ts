@@ -6,6 +6,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+// TinyMCE
+import { EditorModule } from '@tinymce/tinymce-angular';
+
 import { CreateRoutingModule } from './create-routing.module';
 import { CreateComponent } from './create.component';
 
@@ -20,7 +23,8 @@ import { CreateComponent } from './create.component';
     CreateRoutingModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    EditorModule,
   ]
 })
 export class CreateModule { }

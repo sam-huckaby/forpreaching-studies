@@ -1,5 +1,56 @@
-$breakpoints: (
-  'phone': 320px, 
-  'tablet': 768px, 
-  'desktop': 1024px
-) !default;
+// I have to make the choice to target mobile-first. The main goal of this project is to make illustration
+// cataloging easier and faster, which means using your phone a lot. This will also mean that I need to focus
+// more time and energy on every feature to ensure it works well for BOTH mobile and desktop users.
+
+// Portait smartphones
+$breakpoint-xs: 320px;
+// Small tablets and large smartphones (landscape view)
+$breakpoint-sm: 576px;
+// Small tablets (portrait view)
+$breakpoint-md: 768px;
+// Tablets and small desktops
+$breakpoint-lg: 992px;
+// Large tablets and desktops
+$breakpoint-xl: 1200px;
+
+// Small devices
+@mixin xs {
+  @media (min-width: #{$breakpoint-xs}) {
+      @content;
+  }
+}
+
+// Small devices
+@mixin sm {
+  @media (min-width: #{$breakpoint-sm}) {
+      @content;
+  }
+}
+
+// Medium devices
+@mixin md {
+  @media (min-width: #{$breakpoint-md}) {
+      @content;
+  }
+}
+
+// Large devices
+@mixin lg {
+  @media (min-width: #{$breakpoint-lg}) {
+      @content;
+  }
+}
+
+// Extra large devices (Maybe don't even need this one)
+@mixin xl {
+  @media (min-width: #{$breakpoint-xl}) {
+      @content;
+  }
+}
+
+// Custom / Dynamic sizing mixin
+@mixin custom($size) {
+  @media (min-width: $size+'px') {
+      @content;
+  }
+}

@@ -7,11 +7,11 @@
         <div *ngIf="illustration._id">
             <div class="owner-view" *ngIf="illustration.creator === userId; else visitor">
                 <form class="illustration-form" [formGroup]="illustrationForm" #editIllustrationForm="ngForm">
-                    <div class="responsive-breakdown space-between" id="top-metadata">
+                    <div class="space-between" id="top_metadata">
                         <span class="field-label">Created: {{illustration.createdAt | date:'longDate'}}</span>
                         <span class="field-label">Last Updated: {{illustration.updatedAt | date:'longDate'}}</span>
                     </div>
-                    <div class="responsive-breakdown">
+                    <div id="title_field">
                         <mat-form-field appearance="outline" class="flex-full">
                             <mat-label for="title_illustration_input">Title</mat-label>
                             <input matInput
@@ -23,12 +23,6 @@
                     </div>
                     <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
                     <div class="responsive-expand flex-full last-input-container separate-bottom">
-                        <!-- <mat-form-field appearance="outline" class="flex-full last-input-field">
-                            <mat-label for="body_illustration_input">Content</mat-label>
-                            <textarea matInput (keyup)="updateReadingTime()"
-                                placeholder="Ex. There once was a potter who made things and then broke them" id="body_illustration_input"
-                                formControlName="body" class="illustration-content responsive-width" required></textarea>
-                        </mat-form-field> -->
                         <editor
                             initialValue="<p>Illustration is loading...</p>"
                             apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
@@ -44,7 +38,7 @@
                                 'help wordcount'
                                 ],
                                 toolbar:
-                                'undo redo | formatselect | bold italic | \
+                                'undo redo | formatselect | bold italic underline | \
                                 alignleft aligncenter alignright alignjustify | \
                                 bullist numlist outdent indent | help'
                             }"
@@ -61,13 +55,13 @@
             </div>
             <ng-template #visitor>
                 <div class="visitor-view">
-                    <div class="responsive-breakdown space-between" id="top-metadata">
+                    <div class="responsive-breakdown space-between pad-bottom" id="top-metadata">
                         <span class="field-label">Created: {{illustration.createdAt | date:'longDate'}}</span>
                         <span class="field-label">Last Updated: {{illustration.updatedAt | date:'longDate'}}</span>
                     </div>
                     <div class="header-text">{{illustration.title}}</div>
                     <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
-                    <div class="regular-text">{{illustration.body}}</div>
+                    <div class="boxed-text" [innerHTML]="illustration.body"></div>
                 </div>
             </ng-template>
         </div>

@@ -1,4 +1,5 @@
 @import '../../styles/forms.scss';
+@import '../../styles/responsive.scss';
 
 .table-row {
     @include flex-row;
@@ -15,10 +16,36 @@
     margin-top: 10px;
 }
 
+#create_form {
+    @include flex-col;
+}
+
+#title_field_holder {
+    @include flex-col;
+}
+
+#title_field {
+    @include flex-col;
+
+    width: calc(100% - 20px);
+
+    @include custom(520) {
+        width: 500px;
+    }
+}
+
+#title_create_input {
+    @include flex-col;
+}
+
 .illustration-content {
     height: 200px;
 }
 
 .responsive-width {
     width: 400px;
+}
+
+.separate-bottom {
+    padding-bottom: 20px;
 }

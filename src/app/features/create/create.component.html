@@ -2,9 +2,9 @@
     <div class="table-row children-center">
         <h1>Create a new illustration</h1>
     </div>
-    <form class="create-form" [formGroup]="illustrationForm" (ngSubmit)="onSubmit()" #createIllustrationForm="ngForm">
-        <div class="table-row children-center">
-            <mat-form-field class="responsive-width">
+    <form id="create_form" [formGroup]="illustrationForm" (ngSubmit)="onSubmit()" #createIllustrationForm="ngForm">
+        <div class="children-center" id="title_field_holder">
+            <mat-form-field id="title_field">
                 <mat-label>Title</mat-label>
                 <input matInput
                     placeholder="Ex. The Angry Potter"
@@ -13,13 +13,28 @@
                     formControlName="title" required>
             </mat-form-field>
         </div>
-        <div class="table-row children-center">
-            <mat-form-field class="responsive-width">
-                <mat-label>Content</mat-label>
-                <textarea matInput
-                    placeholder="Ex. There once was a potter who made things and then broke them"
-                    formControlName="body" class="illustration-content responsive-width" required></textarea>
-            </mat-form-field>
+        <div class="table-row children-center separate-bottom">
+            <editor
+                initialValue="<p>There once was an illustration...</p>"
+                apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
+                formControlName="body"
+                [init]="{
+                    height: 500,
+                    menubar: false,
+                    placeholder: 'Ex. There once was a potter who was always angry',
+                    plugins: [
+                    'advlist autolink lists link image charmap print',
+                    'preview anchor searchreplace visualblocks code',
+                    'fullscreen insertdatetime media table paste',
+                    'help wordcount'
+                    ],
+                    toolbar:
+                    'undo redo | formatselect | bold italic underline | \
+                    alignleft aligncenter alignright alignjustify | \
+                    bullist numlist outdent indent | help'
+                }"
+            >
+            </editor>
         </div>
         <div class="table-row children-center">
             <button type="submit" [disabled]="!illustrationForm.valid" mat-raised-button color="primary">Create</button>

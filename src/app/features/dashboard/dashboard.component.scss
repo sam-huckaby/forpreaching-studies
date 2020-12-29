@@ -1,8 +1,6 @@
 // Imports
 @import '../../styles/forms.scss';
-
-// Variables
-$breakpoint-tablet: 768px;
+@import '../../styles/responsive.scss';
 
 //Styles
 .padded-page-container {
@@ -23,11 +21,11 @@ $breakpoint-tablet: 768px;
 }
 
 .responsive-breakdown {
-    @media (min-width: $breakpoint-tablet+1) {
+    @media (min-width: $breakpoint-md+1) {
         @include flex-row;
     }
 
-    @media (max-width: $breakpoint-tablet) {
+    @media (max-width: $breakpoint-md) {
         @include flex-col;
     }
 }
@@ -45,7 +43,7 @@ $breakpoint-tablet: 768px;
 }
 
 .pad-between:not(:last-child) {
-    @media (min-width: $breakpoint-tablet+1) {
+    @media (min-width: $breakpoint-md+1) {
         padding-right: 10px;
     }
 }
@@ -76,7 +74,7 @@ $breakpoint-tablet: 768px;
         justify-content: space-between;
         padding: 5px 0;
 
-        @media (max-width: $breakpoint-tablet) {
+        @media (max-width: $breakpoint-md) {
             height: 40px;
 
             .title,
