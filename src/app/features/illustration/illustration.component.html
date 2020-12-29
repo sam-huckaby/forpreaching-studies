@@ -24,23 +24,22 @@
                     <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
                     <div class="responsive-expand flex-full last-input-container separate-bottom">
                         <editor
-                            initialValue="<p>Illustration is loading...</p>"
                             apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
                             formControlName="body"
-                            (keyup)="updateReadingTime()"
+                            (onKeyUp)="updateReadingTime()"
                             [init]="{
                                 height: 500,
                                 menubar: false,
                                 plugins: [
-                                'advlist autolink lists link image charmap print',
-                                'preview anchor searchreplace visualblocks code',
-                                'fullscreen insertdatetime media table paste',
-                                'help wordcount'
+                                    'advlist autolink lists link image charmap print',
+                                    'preview anchor searchreplace visualblocks code',
+                                    'fullscreen insertdatetime media table paste',
+                                    'help wordcount'
                                 ],
                                 toolbar:
-                                'undo redo | formatselect | bold italic underline | \
-                                alignleft aligncenter alignright alignjustify | \
-                                bullist numlist outdent indent | help'
+                                    'undo redo | formatselect | bold italic underline | \
+                                    alignleft aligncenter alignright alignjustify | \
+                                    bullist numlist outdent indent | help'
                             }"
                         >
                         </editor>
