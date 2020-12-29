@@ -27,7 +27,9 @@ RUN ng build --prod --output-path=dist
 # base image
 FROM nginx:1.16.0-alpine
 
-# copy artifact build from the 'build environment'
+# Copy the nginx SPA config from the repo directly
+COPY nginx.config /etc/nginx/conf.d/default.conf
+# Copy artifact build from the 'build environment'
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Expose 80 so that nginx-proxy knows where to send traffic 
