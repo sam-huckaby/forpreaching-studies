@@ -20,6 +20,14 @@
     @include flex-col;
 }
 
+.last-input-container {
+    @include flex-col;
+}
+
+.flex-full {
+    @include flex-full;
+}
+
 #title_field_holder {
     @include flex-col;
 }
