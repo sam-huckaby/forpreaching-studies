@@ -28,6 +28,8 @@ import { AppComponent } from './app.component';
 
 // Core Module
 import { CoreModule } from './core/core.module';
+// Shared Module
+import { SharedModule } from './shared/shared.module';
 
 // Load the root module
 @NgModule({
@@ -63,6 +65,7 @@ import { CoreModule } from './core/core.module';
     MatToolbarModule,
     MatSliderModule,
     CoreModule,
+    SharedModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },

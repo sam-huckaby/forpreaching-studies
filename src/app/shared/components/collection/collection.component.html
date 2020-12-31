@@ -1,0 +1,13 @@
+<div class="collection-container">
+    <div class="collection-header">
+        {{caption}}
+    </div>
+    <div class="collection-list">
+        <div class="empty-collection-message" *ngIf="entries.length === 0">
+            This collection is empty.
+        </div>
+        <div class="collection-item" *ngFor="let entry of entries">
+            <div [routerLink]="['/illustration', entry._id]">{{entry.title}}</div>
+        </div>
+    </div>
+</div>
