@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../forpreaching-server"
+		},
+		{
+			"path": "../forpreaching-sermons"
 		}
 	],
 	"settings": {}
