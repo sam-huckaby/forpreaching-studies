@@ -32,7 +32,7 @@
                     <div class="title" [routerLink]="['/illustration', result._id]">{{result.title}}</div>
                     <div class="updated">Last Updated: {{result.updatedAt | date:'longDate'}}</div>
                 </div>
-                <div class="bottom-bar">{{result.body}}</div>
+                <div class="bottom-bar" [innerHtml]="result.body"></div>
             </div>
         </div>
         <ng-template #resultless>
