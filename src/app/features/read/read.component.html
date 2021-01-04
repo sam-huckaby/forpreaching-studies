@@ -1,0 +1,106 @@
+<div class="padded-page-container">
+    <div class="fullscreen-loading-veil" *ngIf="isLoading$ | async">
+        Loading...
+    </div>
+    <div class="loaded-guide" *ngIf="guide$ | async as guide">
+        <!-- If the guide has been loaded already, we want it to remain visible under the loading veil -->
+        <div *ngIf="guide._id">
+            <div class="owner-view" *ngIf="guide.creator === userId; else visitor">
+                <form class="guide-form" [formGroup]="readForm" #editReadForm="ngForm">
+                    <div class="space-between" id="top_metadata">
+                        <span class="field-label">Created: {{guide.createdAt | date:'longDate'}}</span>
+                        <span class="field-label">Last Updated: {{guide.updatedAt | date:'longDate'}}</span>
+                    </div>
+                    <div class="sm-breakdown">
+                        <div id="title_field">
+                            <mat-form-field appearance="outline" class="flex-full">
+                                <mat-label for="title_guide_input">Title</mat-label>
+                                <input matInput
+                                    placeholder="Ex. The Angry Potter"
+                                    id="title_guide_input"
+                                    class="responsive-width"
+                                    formControlName="title" required>
+                            </mat-form-field>
+                        </div>
+                        <div id="scripture_field">
+                            <mat-form-field appearance="outline" class="flex-full">
+                                <mat-label for="scripture_guide_input">Scripture</mat-label>
+                                <input matInput
+                                    placeholder="Ex. The Angry Potter"
+                                    id="scripture_guide_input"
+                                    class="responsive-width"
+                                    formControlName="scripture" required>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div id="summary_field">
+                        <mat-form-field appearance="outline" class="flex-full">
+                            <mat-label for="summary_guide_input">Summary</mat-label>
+                            <input matInput
+                                placeholder="A few sentences to describe the content of the guide"
+                                id="summary_guide_input"
+                                class="responsive-width"
+                                formControlName="summary" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
+                    <div class="responsive-expand flex-full last-input-container separate-bottom">
+                        <editor
+                            apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
+                            formControlName="body"
+                            (onKeyUp)="updateReadingTime()"
+                            [init]="{
+                                height: 500,
+                                menubar: false,
+                                plugins: [
+                                    'advlist autolink lists link image charmap print',
+                                    'preview anchor searchreplace visualblocks code',
+                                    'fullscreen insertdatetime media table paste',
+                                    'help wordcount'
+                                ],
+                                toolbar:
+                                    'undo redo | formatselect | bold italic underline | \
+                                    alignleft aligncenter alignright alignjustify | \
+                                    bullist numlist outdent indent | help'
+                            }"
+                        >
+                        </editor>
+                    </div>
+                    <div class="bottom-controls">
+                        <button class="control-button" id="delete_button" [disabled]="!readForm.valid" (click)="deleteGuide()" mat-raised-button color="warn"><fa-icon [icon]="faTrash"></fa-icon></button>
+                        <divl class="spacer"></divl>
+                        <button class="control-button" id="reset_button" [disabled]="!readForm.dirty" (click)="resetChanges()" mat-raised-button>Reset</button>
+                        <button class="control-button" id="save_button" [disabled]="!readForm.valid || !readForm.dirty" (click)="saveChanges()" mat-raised-button color="primary">Save</button>
+                    </div>
+                </form>
+            </div>
+            <ng-template #visitor>
+                <div class="visitor-view">
+                    <div class="responsive-breakdown space-between pad-bottom" id="top_metadata">
+                        <span class="field-label">Created: {{guide.createdAt | date:'longDate'}}</span>
+                        <span class="field-label">Last Updated: {{guide.updatedAt | date:'longDate'}}</span>
+                    </div>
+                    <div class="header-text">{{guide.title}}</div>
+                    <div class="subheader-text">{{guide.scripture}}</div>
+                    <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
+                    <div class="large-text separate-bottom">{{guide.summary}}</div>
+                    <form [formGroup]="readForm" #editReadForm="ngForm">
+                        <editor
+                            apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
+                            formControlName="body"
+                            disabled="true"
+                            (onKeyUp)="updateReadingTime()"
+                            [init]="{
+                                height: 500,
+                                menubar: false,
+                                plugins: [],
+                                toolbar: ''
+                            }"
+                        >
+                        </editor>
+                    </form>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

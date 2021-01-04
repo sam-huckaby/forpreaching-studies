@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./features/create/create.module').then(m => m.CreateModule)
   },
   {
+    path: 'read',
+    loadChildren: () => import('./features/read/read.module').then(m => m.ReadModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule),
   }

@@ -1,0 +1,175 @@
+@import '../../styles/forms.scss';
+@import '../../styles/responsive.scss';
+
+.padded-page-container {
+    @include flex-col;
+    height: calc(100% - 20px);
+}
+
+.loaded-guide {
+    @include flex-col;
+
+    // Take up the entire page
+    flex: 1 1 100%;
+}
+
+.owner-view,
+.visitor-view {
+    @include flex-col;
+
+    // Take up the entire page
+    flex: 1 1 100%;
+}
+
+.read-form {
+    @include flex-col;
+
+    // Take up the entire page
+    flex: 1 1 100%;
+}
+
+.last-input-container {
+    @include flex-col;
+}
+
+.last-input-field {
+    @include flex-col;
+}
+
+.bottom-controls {
+    @include flex-row;
+
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+#reset_button {
+    margin: 0 10px;
+}
+
+#body_guide_input {
+    flex: 1 1 100%;
+}
+
+.pad-bottom {
+    padding-bottom: 5px;
+}
+
+.responsive-breakdown {
+    @include flex-col;
+
+    align-items: flex-start;
+
+    // 576px window width and more
+    @include sm {
+        @include flex-row;
+    }
+}
+
+#title_field,
+#scripture_field {
+    @include sm {
+        flex: 1 1 50%;
+    }
+}
+
+#title_field {
+    @include sm {
+        padding-right: 5px;
+    }
+}
+
+#scripture_field {
+    @include sm {
+        padding-left: 5px;
+    }
+}
+
+.sm-breakdown {
+    @include flex-col;
+
+    @include sm {
+        @include flex-row;
+    }
+}
+
+.responsive-expand {
+    flex-grow: 1;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+#top_metadata {
+    @include flex-col;
+
+    align-items: flex-start;
+    margin-bottom: 10px;
+
+    @include sm {
+        @include flex-row;
+
+        border-bottom: 1px solid #444444;
+        align-items: center;
+    }
+}
+
+#title_field,
+#scripture_field,
+#summary_field {
+    @include flex-col;
+}
+
+.flex-full {
+    @include flex-full;
+}
+
+.right-margin {
+    margin-right: 10px;
+}
+
+.field-label {
+    color: #444444;
+}
+
+.separate-bottom {
+    padding-bottom: 20px;
+}
+
+.guide-content {
+    height: 400px;
+}
+
+.spacer {
+    flex: 1 1 100%;
+}
+
+.fullscreen-loading-veil {
+    @include full-screen;
+    @include loading-veil;
+}
+
+// Visitor View elements
+.header-text {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.subheader-text {
+    font-size: 18px;
+    // font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.boxed-text {
+    font-size: 14px;
+    border: 1px solid #CCC;
+    background-color: whitesmoke;
+    padding: 10px 0;
+
+    @include sm {
+        padding: 10px;
+    }
+}

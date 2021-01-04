@@ -122,7 +122,7 @@ export class CreateComponent implements OnInit {
   }
 
   clipPassage(passage): string {
-    return passage.replace( /(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ' ').replace(/&ldquo;/ig, "'").replace(/&rsquo;/ig, "'");
+    return passage.replace( /(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ' ').replace(/&ldquo;/ig, "'").replace(/&rsquo;/ig, "'").replace(/&lsquo;/ig, "'").replace(/&rdquo;/ig, "'");
   }
 
   onSubmit(): void {
