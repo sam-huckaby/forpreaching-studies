@@ -1,6 +1,11 @@
 @import '../../styles/forms.scss';
 @import '../../styles/responsive.scss';
 
+.padded-page-container {
+    @include flex-col;
+    align-items: center;
+}
+
 .table-row {
     @include flex-row;
 }
@@ -8,6 +13,8 @@
 .fullscreen-loading-veil {
     @include full-screen;
     @include loading-veil;
+
+    z-index: 10;
 }
 
 .success-message {
@@ -18,21 +25,34 @@
 
 #create_form {
     @include flex-col;
+
+    align-items: center;
+    width: 100%;
 }
 
-.last-input-container {
+.editor-container {
     @include flex-col;
+    max-width: 100%;
+}
+
+.editor {
+    max-width: 100%;
 }
 
 .flex-full {
     @include flex-full;
 }
 
-#title_field_holder {
+#title_field_holder,
+#entry_field_holder,
+#intro_label {
     @include flex-col;
+    width: 100%;
 }
 
-#title_field {
+#title_field,
+#entry_field,
+#intro_label {
     @include flex-col;
 
     width: calc(100% - 20px);
@@ -40,6 +60,11 @@
     @include custom(520) {
         width: 500px;
     }
+}
+
+.edtor-label {
+    font-size: 16px;
+    font-weight: bold;
 }
 
 #title_create_input {
@@ -56,4 +81,109 @@
 
 .separate-bottom {
     padding-bottom: 20px;
+}
+
+.sermon-info {
+    border: 1px solid #CCCCCC;
+    padding: 5px;
+    margin-bottom: 5px;
+
+    width: calc(100% - 20px);
+
+    @include custom(520) {
+        width: 500px;
+    }
+
+    .sermon-title {
+        font-weight: bold;
+        font-style: italic;
+        margin-bottom: 2px;
+    }
+}
+
+.study-container {
+    @include flex-col;
+
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    border: 1px solid #CCCCCC;
+
+    @include custom(520) {
+        width: 500px;
+    }
+
+    .study-header {
+        @include flex-row;
+        justify-content: space-between;
+        align-items: center;;
+
+        background-color: rgba(31, 44, 132, 0.4);
+        color: black;
+        font-weight: bold;
+        padding: 5px;
+    }
+
+    .study-list {
+        // .study:nth-child(odd) {
+        //     background-color: rgba(50, 50, 50, 0.1);
+        // }
+
+        .no-studies {
+            display: flex;
+            justify-content: flex-end;
+            line-height: 40px;
+            margin-right: 20px;
+
+            fa-icon {
+                margin-left: 10px;
+            }
+        }
+
+        .study {
+            @include flex-col;
+
+            border-bottom: 1px solid #CCCCCC;
+
+            &:hover {
+                background-color: whitesmoke;
+            }
+
+            .study-meta {
+                @include flex-row;
+
+                .left {
+                    @include flex-col;
+    
+                    flex: 1 1 100%;
+                    padding-left: 25px;
+    
+                    .study-caption {
+                        font-weight: bold;
+                    }
+    
+                    .study-scripture {
+                        font-style: italic;
+                    }
+                }
+    
+                .right {
+                    flex: 1 1 50px;
+                }
+            }
+
+            .study-passages {
+                @include flex-col;
+
+                padding-left: 50px;
+
+                .passage {
+                    text-overflow: ellipsis;
+                    width: 100%;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    line-height: 40px;
+                }
+            }
+        }
+    }
 }

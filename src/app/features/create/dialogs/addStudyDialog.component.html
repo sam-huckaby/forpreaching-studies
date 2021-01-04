@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Add a study to the guide</h2>
+<mat-dialog-content>
+    <form id="create_study_form" [formGroup]="studyForm" #createStudyForm="ngForm">
+        <div class="children-center" id="caption_field_holder">
+            <mat-form-field id="caption_field">
+                <mat-label>Caption</mat-label>
+                <input matInput
+                    placeholder="Ex. The Angry Potter"
+                    id="caption_create_input"
+                    class="responsive-width"
+                    formControlName="caption">
+            </mat-form-field>
+        </div>
+        <div class="children-center" id="scripture_field_holder">
+            <mat-form-field id="scripture_field">
+                <mat-label>Scripture</mat-label>
+                <input matInput
+                    placeholder="Ex. The Angry Potter"
+                    id="scripture_create_input"
+                    class="responsive-width"
+                    formControlName="scripture" required>
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+<button mat-button [mat-dialog-close]="false">Cancel</button>
+<!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+<!-- [mat-dialog-close]="studyForm.value"  -->
+<button mat-button [disabled]="!studyForm.valid" (click)="onAddClick()" color="primary">Add</button>
+</mat-dialog-actions>

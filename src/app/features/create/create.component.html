@@ -1,49 +1,116 @@
 <div class="padded-page-container">
-    <div class="table-row children-center">
-        <h1>Create a new illustration</h1>
+    <div *ngIf="this.isLoading$ | async; else sermonLoaded" class="fullscreen-loading-veil">
+        Loading...
     </div>
-    <form id="create_form" [formGroup]="illustrationForm" (ngSubmit)="onSubmit()" #createIllustrationForm="ngForm">
-        <div class="children-center" id="title_field_holder">
-            <mat-form-field id="title_field">
-                <mat-label>Title</mat-label>
-                <input matInput
-                    placeholder="Ex. The Angry Potter"
-                    id="title_create_input"
-                    class="responsive-width"
-                    formControlName="title" required>
-            </mat-form-field>
-        </div>
-        <div class="last-input-container flex-full children-center separate-bottom">
-            <editor
-                initialValue="<p>There once was an illustration...</p>"
-                apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
-                formControlName="body"
-                [init]="{
-                    height: 500,
-                    menubar: false,
-                    placeholder: 'Ex. There once was a potter who was always angry',
-                    plugins: [
-                    'advlist autolink lists link image charmap print',
-                    'preview anchor searchreplace visualblocks code',
-                    'fullscreen insertdatetime media table paste',
-                    'help wordcount'
-                    ],
-                    toolbar:
-                    'undo redo | formatselect | bold italic underline | \
-                    alignleft aligncenter alignright alignjustify | \
-                    bullist numlist outdent indent | help'
-                }"
-            >
-            </editor>
-        </div>
+    <ng-template #sermonLoaded>
         <div class="table-row children-center">
-            <button type="submit" [disabled]="!illustrationForm.valid" mat-raised-button color="primary">Create</button>
+            <h1>Create a new study guide</h1>
         </div>
-    </form>
-    <div class="success-message children-center" *ngIf="submit$ | async as result; else indicator">
-        <span *ngIf="result !== true">Illustration created!</span>
-    </div>
-    <ng-template #indicator>
-        <div class="fullscreen-loading-veil">Loading...</div>
+        <div class="sermon-info" *ngIf="sermon$ | async as sermon">
+            <div class="sermon-title">{{sermon.title}}</div>
+            <div class="sermon-summary">{{sermon.summary}}</div>
+        </div>
+        <form id="create_form" [formGroup]="studyForm" (ngSubmit)="onSubmit()" #createGuideForm="ngForm">
+            <div class="children-center" id="title_field_holder">
+                <mat-form-field id="title_field">
+                    <mat-label>Study Title</mat-label>
+                    <input matInput
+                        placeholder="Ex. The Angry Potter"
+                        id="title_create_input"
+                        formControlName="title" required>
+                </mat-form-field>
+            </div>
+            <div class="edtor-label" id="intro_label">
+                Study Introduction
+            </div>
+            <div class="editor-container flex-full children-center separate-bottom">
+                <editor
+                    initialValue="<p>The introduction to this study</p>"
+                    apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
+                    formControlName="introduction"
+                    class="editor"
+                    [init]="{
+                        height: 250,
+                        menubar: false,
+                        placeholder: 'Ex. There once was a potter who was always angry',
+                        plugins: [
+                        'advlist autolink lists link image charmap print',
+                        'preview anchor searchreplace visualblocks code',
+                        'fullscreen insertdatetime media table paste',
+                        'help wordcount'
+                        ],
+                        toolbar:
+                        'undo redo | formatselect | bold italic underline | \
+                        alignleft aligncenter alignright alignjustify | \
+                        bullist numlist outdent indent | help'
+                    }"
+                >
+                </editor>
+            </div>
+            <div class="edtor-label" id="intro_label">
+                Study Instructions (optional)
+            </div>
+            <div class="editor-container flex-full children-center separate-bottom">
+                <editor
+                    initialValue="<p>How to do this study</p>"
+                    apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
+                    formControlName="instructions"
+                    class="editor"
+                    [init]="{
+                        height: 250,
+                        menubar: false,
+                        placeholder: 'Ex. There once was a potter who was always angry',
+                        plugins: [
+                        'advlist autolink lists link image charmap print',
+                        'preview anchor searchreplace visualblocks code',
+                        'fullscreen insertdatetime media table paste',
+                        'help wordcount'
+                        ],
+                        toolbar:
+                        'undo redo | formatselect | bold italic underline | \
+                        alignleft aligncenter alignright alignjustify | \
+                        bullist numlist outdent indent | help'
+                    }"
+                >
+                </editor>
+            </div>
+            <div class="study-container">
+                <div class="study-header">
+                    <span class="header-text">Studies</span>
+                    <button type="button" mat-icon-button color="basic" (click)="editStudy(false)">
+                        <fa-icon [icon]="faPlus"></fa-icon>
+                    </button>
+                </div>
+                <div class="study-list">
+                    <div class="no-studies" *ngIf="studies.length === 0">
+                        Add a study by clicking above <fa-icon [icon]="faArrowUp"></fa-icon>
+                    </div>
+                    <div class="study" *ngFor="let study of studies; index as i">
+                        <div class="study-meta">
+                            <div class="left">
+                                <div class="study-caption">{{study.caption}}</div>
+                                <div class="study-scripture">{{study.scripture}}</div>
+                            </div>
+                            <div class="right">
+                                <button type="button" mat-icon-button color="primary" (click)="addPassage(i)">
+                                    <fa-icon [icon]="faPlus"></fa-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="study-passages">
+                            <div class="passage" *ngFor="let passage of study.passages">
+                                <fa-icon [icon]="faFileAlt"></fa-icon>&nbsp;{{clipPassage(passage.body)}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-row children-center">
+                <button type="submit" [disabled]="!studyForm.valid" mat-raised-button color="primary">Create</button>
+            </div>
+        </form>
+        <div class="success-message children-center" *ngIf="submit$ | async as result">
+            <span *ngIf="result !== true">Study created!</span>
+        </div>
     </ng-template>
 </div>

@@ -16,20 +16,8 @@ const routes: Routes = [
     loadChildren: () => import('./features/home/home.module').then(m => m.HomeModule)
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule)
-  },
-  {
-    path: 'library',
-    loadChildren: () => import('./features/library/library.module').then(m => m.LibraryModule)
-  },
-  {
     path: 'create',
     loadChildren: () => import('./features/create/create.module').then(m => m.CreateModule)
-  },
-  {
-    path: 'illustration',
-    loadChildren: () => import('./features/illustration/illustration.module').then(m => m.IllustrationModule)
   },
   {
     path: '**',

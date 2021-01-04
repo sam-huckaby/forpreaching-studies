@@ -8,12 +8,18 @@ import { AuthGuard } from '@auth0/auth0-angular';
 
 // Child-routes for the feature
 const routes: Routes = [
-    {
-        path: '',
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: ':id',
         component: CreateComponent,
         pathMatch: 'full',
         canActivate: [AuthGuard]
       }
+    ]
+  }
 ];
 
 @NgModule({

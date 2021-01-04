@@ -1,0 +1,69 @@
+<h2 mat-dialog-title>Add a passage to the study</h2>
+<mat-dialog-content>
+    <form id="create_passage_form" [formGroup]="passageForm" #createPassageForm="ngForm">
+        <div class="space-bottom" id="body_field_holder">
+            <label for="passage_body_input">Passage Body</label>
+            <editor
+                initialValue="<p>Information that you want the reader to read and understand</p>"
+                apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
+                formControlName="body"
+                class="editor"
+                id="passage_body_input"
+                [init]="{
+                    height: 200,
+                    menubar: false,
+                    placeholder: 'Information that you want the reader to read and understand',
+                    plugins: [
+                    'advlist autolink lists link image charmap print',
+                    'preview anchor searchreplace visualblocks code',
+                    'fullscreen insertdatetime media table paste',
+                    'help wordcount'
+                    ],
+                    toolbar:
+                    'undo redo | formatselect | bold italic underline | \
+                    alignleft aligncenter alignright alignjustify | \
+                    bullist numlist outdent indent | help'
+                }"
+            >
+            </editor>
+        </div>
+        <div class="" id="reflection_field_holder">
+            <!-- <mat-form-field id="reflection_field">
+                <mat-label>Reflection Question(s)</mat-label>
+                <textarea matInput
+                    placeholder="Questions to help the reader reflect on and apply the passage"
+                    id="reflection_create_input"
+                    class="responsive-width"
+                    formControlName="reflection" required></textarea>
+            </mat-form-field> -->
+            <label for="passage_reflection_input">Reflection Question(s)</label>
+            <editor
+                initialValue="<p>Questions to help the reader reflect on and apply the passage</p>"
+                apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
+                formControlName="reflection"
+                class="editor"
+                id="passage_reflection_input"
+                [init]="{
+                    height: 200,
+                    menubar: false,
+                    placeholder: 'Questions to help the reader reflect on and apply the passage',
+                    plugins: [
+                    'advlist autolink lists link image charmap print',
+                    'preview anchor searchreplace visualblocks code',
+                    'fullscreen insertdatetime media table paste',
+                    'help wordcount'
+                    ],
+                    toolbar:
+                    'undo redo | formatselect | bold italic underline | \
+                    alignleft aligncenter alignright alignjustify | \
+                    bullist numlist outdent indent | help'
+                }"
+            >
+            </editor>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-button [disabled]="!passageForm.valid" (click)="onAddClick()" color="primary">Add</button>
+</mat-dialog-actions>
