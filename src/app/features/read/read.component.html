@@ -5,7 +5,8 @@
     <div class="loaded-guide" *ngIf="guide$ | async as guide">
         <!-- If the guide has been loaded already, we want it to remain visible under the loading veil -->
         <div *ngIf="guide._id">
-            <div class="owner-view" *ngIf="guide.creator !== userId; else visitor">
+            <!-- userId -->
+            <div class="owner-view" *ngIf="guide.creator === 0001; else visitor">
                 <form class="guide-form" [formGroup]="readForm" #editReadForm="ngForm">
                     <div class="space-between" id="top_metadata">
                         <span class="field-label">Created: {{guide.createdAt | date:'longDate'}}</span>
