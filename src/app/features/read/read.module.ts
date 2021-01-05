@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 // 3rd Party libraries
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -32,6 +33,7 @@ import { ReadComponent, ConfirmDeleteDialog } from './read.component';
     MatButtonModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatExpansionModule,
     FontAwesomeModule,
     EditorModule,
   ],

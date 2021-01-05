@@ -5,7 +5,7 @@
     <div class="loaded-guide" *ngIf="guide$ | async as guide">
         <!-- If the guide has been loaded already, we want it to remain visible under the loading veil -->
         <div *ngIf="guide._id">
-            <div class="owner-view" *ngIf="guide.creator === userId; else visitor">
+            <div class="owner-view" *ngIf="guide.creator !== userId; else visitor">
                 <form class="guide-form" [formGroup]="readForm" #editReadForm="ngForm">
                     <div class="space-between" id="top_metadata">
                         <span class="field-label">Created: {{guide.createdAt | date:'longDate'}}</span>
@@ -81,10 +81,54 @@
                         <span class="field-label">Last Updated: {{guide.updatedAt | date:'longDate'}}</span>
                     </div>
                     <div class="header-text">{{guide.title}}</div>
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                            Introduction
+                            </mat-panel-title>
+                            <!-- <mat-panel-description>
+                            This is a summary of the content
+                            </mat-panel-description> -->
+                        </mat-expansion-panel-header>
+                        <editor
+                                apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
+                                [(ngModel)]="guide.introduction"
+                                disabled="true"
+                                [init]="{
+                                    height: 500,
+                                    menubar: false,
+                                    plugins: [],
+                                    toolbar: ''
+                                }"
+                            ></editor>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Instructions
+                            </mat-panel-title>
+                            <!-- <mat-panel-description>
+                                This is a summary of the content
+                            </mat-panel-description> -->
+                            </mat-expansion-panel-header>
+                            <editor
+                                apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
+                                [(ngModel)]="guide.instructions"
+                                disabled="true"
+                                [init]="{
+                                    height: 500,
+                                    menubar: false,
+                                    plugins: [],
+                                    toolbar: ''
+                                }"
+                            ></editor>
+                        </mat-expansion-panel>
+                    </mat-accordion>
                     <div class="subheader-text">{{guide.scripture}}</div>
                     <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
                     <div class="large-text separate-bottom">{{guide.summary}}</div>
-                    <form [formGroup]="readForm" #editReadForm="ngForm">
+                    <!-- <form [formGroup]="readForm" #editReadForm="ngForm"></form>
                         <editor
                             apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
                             formControlName="body"
@@ -96,9 +140,8 @@
                                 plugins: [],
                                 toolbar: ''
                             }"
-                        >
-                        </editor>
-                    </form>
+                        ></editor>
+                    </form> -->
                 </div>
             </ng-template>
         </div>
