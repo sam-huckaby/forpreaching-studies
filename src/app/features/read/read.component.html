@@ -125,23 +125,48 @@
                             ></editor>
                         </mat-expansion-panel>
                     </mat-accordion>
-                    <div class="subheader-text">{{guide.scripture}}</div>
-                    <div class="field-label separate-bottom">Aproximate Reading Time: {{ (readTime*1000) | date:'m:ss' }}</div>
-                    <div class="large-text separate-bottom">{{guide.summary}}</div>
-                    <!-- <form [formGroup]="readForm" #editReadForm="ngForm"></form>
-                        <editor
-                            apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
-                            formControlName="body"
-                            disabled="true"
-                            (onKeyUp)="updateReadingTime()"
-                            [init]="{
-                                height: 500,
-                                menubar: false,
-                                plugins: [],
-                                toolbar: ''
-                            }"
-                        ></editor>
-                    </form> -->
+                    <div class="space-above subheader-text">Studies</div>
+                    <div class="studies-container">
+                        <mat-accordion>
+                            <mat-expansion-panel class="study" *ngFor="let study of guide.studies">
+                                <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    {{study.caption}}
+                                </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <div class="study-scripture">
+                                    <div class="scripture-header">Read:</div>
+                                    <div class="scripture-passages">
+                                        {{study.scripture}}
+                                    </div>
+                                </div>
+                                <div class="study-passages-container">
+                                    <div class="passage" *ngFor="let passage of study.passages">
+                                        <div class="passage-body" [innerHtml]="passage.body"></div>
+                                        <div class="passage-reflection boxed-text" [innerHtml]="passage.reflection"></div>
+                                        <mat-form-field id="reflection_field" class="full-width">
+                                            <mat-label>Reflection(s)</mat-label>
+                                            <textarea matInput
+                                                placeholder="Store your reflections here"
+                                                id="reflection_read_input"
+                                                rows="5"
+                                                class="full-width"
+                                                required></textarea>
+                                        </mat-form-field>
+                                        <!-- <editor
+                                            apiKey="rzi5eoji5qf0glawt64s7gkwxg9psn6rxq0q8cgjhby0en2b"
+                                            [init]="{
+                                                height: 150,
+                                                menubar: false,
+                                                plugins: [],
+                                                toolbar: ''
+                                            }"
+                                        ></editor> -->
+                                    </div>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
                 </div>
             </ng-template>
         </div>
