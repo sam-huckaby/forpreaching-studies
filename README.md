@@ -1,4 +1,4 @@
-# Illustrations For Preaching
+# Studies For Preaching
 We've been doing small groups since the early church met in homes in the first century.
 
 In the first century, small groups knew about the jobs, finances, struggles, and spiritual progress of their members.
